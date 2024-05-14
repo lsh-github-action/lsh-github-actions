@@ -1,0 +1,9 @@
+name: env
+on: push
+
+jobs:
+  get-env-outside:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check env
+        run: echo "${{vars.TEST}}"
