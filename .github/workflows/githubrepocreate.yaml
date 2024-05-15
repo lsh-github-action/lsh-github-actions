@@ -24,6 +24,7 @@ jobs:
         run: |
           echo ${{ secrets.PERSONAL_ACCESS_TOKEN}} | gh auth login --with-token
       - name: create-repo
+        id: create-repo
         run: |
           gh repo create lsh-github-action/${{inputs.prefix}}-${{inputs.name}} --public --add-readme
       - uses: actions/checkout@v2
@@ -32,6 +33,6 @@ jobs:
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_MESSAGE: "repo auto creation"
-          SLACK_TITLE: "레포 자동화"
+          SLACK_TITLE: "${{steps.create-repo.outcome}}"
           SLACK_USERNAME: codefug
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
