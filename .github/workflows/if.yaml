@@ -1,0 +1,15 @@
+name: if action
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  if_action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: if push
+        if: github.event_name=='push'
+        run: echo push
+      - name: if dispatch
+        if: github.event_name=='workflow_dispatch'
+        run: echo dispatch
