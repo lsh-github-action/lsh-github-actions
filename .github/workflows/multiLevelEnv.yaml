@@ -1,0 +1,22 @@
+name: multiLevelEnv
+on: push
+
+jobs:
+  org-level:
+    runs-on: ubuntu-latest
+    steps:
+      - name: org test
+        run: echo ${{vars.TEST}}
+  repo-level:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: repo test
+        run: echo ${{vars.TEST}}
+  env-level:
+    runs-on: ubuntu-latest
+    environment: test
+    steps:
+      - name: env test
+        run: echo ${{vars.TEST}}
