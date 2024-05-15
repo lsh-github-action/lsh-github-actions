@@ -26,3 +26,12 @@ jobs:
       - name: create-repo
         run: |
           gh repo create lsh-github-action/${{inputs.prefix}}-${{inputs.name}} --public --add-readme
+      - uses: actions/checkout@v2
+      - name: Slack Notification
+        if: always()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_MESSAGE: "repo auto creation"
+          SLACK_TITLE: "레포 자동화"
+          SLACK_USERNAME: codefug
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
