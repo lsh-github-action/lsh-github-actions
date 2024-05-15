@@ -1,0 +1,16 @@
+name: string-function
+on: push
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: startsWith
+        if: startsWith('github actions','g')
+        run: echo "g"
+      - name: endsWith
+        if: endsWith('github,actions,abc','abc')
+        run: echo "abc"
+      - name: contain
+        if: contains('github,actions',',')
+        run: echo ","
