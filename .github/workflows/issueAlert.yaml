@@ -24,3 +24,19 @@ jobs:
       - name: get output
         run: |
           echo ${{ steps.get-keyword.outputs.level}}
+  slack:
+    needs: [get-keyword]
+    if: needs.get-keyword.outputs.level != 'Undefined'
+    runs-on: ubuntu-latest
+    environment: ${{needs.get-keyword.outputs.level}}
+    name: Slack Notification
+    steps:
+      - uses: actions/checkout@v2
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          if: needs.get-keyword.outputs.level == 'success'; then
+          SLACK_COLOR: "good"
+          SLACK_TITLE: "good"
+          SLACK_MESSAGE: ":rocket:"
